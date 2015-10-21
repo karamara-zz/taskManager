@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery-1.11.3.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/bootstrap.min.js"></script>
+
+	<script src="js/angular.js"></script>
+	<script src="js/angular-route.js"></script>
+	<script src='js/script.js'></script>
+	 <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body ng-app='myApp'>
+	<div id="container" ng-controller='tasksController as tasksCtrl'>
+		<div id="tasks">
+			<h3>Tasks</h3>
+			<table class='table table-striped'>
+				<thead>
+				<tr>
+					<th>Tasks</th>
+					<th>Priority</th>
+					<th>Deadline</th>
+					<th>Created</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat='task in tasksCtrl.tasks | orderBy:"-deadline"'>
+					<td ng-bind="task.name"></td>
+					<td ng-bind='task.priority'></td>
+					<td ng-bind='task.deadline | date: "longDate"'></td>
+					<td ng-bind='task.created_at | date: "longDate" '></td>
+					<td><button class='btn btn-danger' ng-click='tasksCtrl.remove(task)'>Remove</button></td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div><!-- end of tasks -->
+		<div id="addTask">
+			<form>
+				<h3>Add a new task</h3>
+				Task Name: <input type="text" ng-model='tasksCtrl.newTask.name'><br>
+				Priority: <select ng-model = 'tasksCtrl.newTask.priority'>
+				<option value="Highest">Highest</option>
+				<option value="High">High</option>
+				<option value="Moderate">Moderate</option>
+				<option value="Low">Low</option>
+				<option value="Ignore">Ignore</option>
+				</select><br>
+				Deadline: <input type="date" ng-model= 'tasksCtrl.newTask.deadline'><br>
+				<input type='submit' class='btn btn-success' ng-click='tasksCtrl.addTask(tasksCtrl.newTask)'>
+			</form>
+		</div>
+	</div><!-- end of container -->
+</body>
+</html>
